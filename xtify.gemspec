@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonathan Bell"]
-  s.date = "2013-01-17"
+  s.date = "2013-05-07"
   s.description = "Client library for Xtify's API"
   s.email = "jbell@moxiesoft.com"
   s.extra_rdoc_files = [
@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
     "lib/xtify/model.rb",
     "test/helper.rb",
     "test/message_test.rb",
-    "test/registration_test.rb"
+    "test/registration_test.rb",
+    "xtify.gemspec"
   ]
   s.homepage = "http://github.com/moxiespaces/xtify"
   s.licenses = ["MIT"]
