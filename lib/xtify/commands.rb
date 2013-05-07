@@ -128,8 +128,10 @@ module Xtify
 
     def post(command, opts)
       args = opts.dup
-      raise ConfigError.new("Must specify app_key in Xtify initializer.") unless Xtify.config.app_key
-      args[:appKey] = Xtify.config.app_key
+      raise ConfigError.new("Must specify app_key in Xtify initializer.") unless (config.app_key_ios || config.app_key_gcm)
+
+      device_type = XtifyDevice.find_by_xid(args[:xids].first).device_type
+      args[:appKey] = config.send("app_key_#{device_type.downcase}")
 
       response = Curl::Easy.perform(File.join(API_V2, command)) do |curl|
         curl.verbose = config.verbose

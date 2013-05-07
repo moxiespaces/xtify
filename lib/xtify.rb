@@ -14,8 +14,7 @@ module Xtify
   end
   
   def self.configure(&block)
-    @config = Config.new
-    yield @config
+    @config = Config.setup
   end
 
   extend Commands
