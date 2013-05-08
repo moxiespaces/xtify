@@ -75,12 +75,12 @@ module Xtify
     # - index_only    -> Index only indicator for rich message
     # - content       -> Message or Hash of message
     def push(opts={})
-      xids = Array.wrap(opts.delete(:devices)).map {|d| d.is_a?(Device) ? d.xid : d}
+      xids = Array.wrap(opts.delete(:devices)).map {|d| d.is_a?(XtifyDevice) ? d.xid : d}
       has_tags = Array.wrap(opts.delete(:has_tags))
       not_tags = Array.wrap(opts.delete(:not_tags))
       content = opts.delete(:content)
       unless content.is_a?(Message)
-        content = Message.new(opts)
+        content = Message.new(content)
       end
 
       args = convert_to_args(opts)
