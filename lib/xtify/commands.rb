@@ -75,7 +75,8 @@ module Xtify
     # - index_only    -> Index only indicator for rich message
     # - content       -> Message or Hash of message
     def push(opts={})
-      xids = Array.wrap(opts.delete(:devices)).map {|d| d.is_a?(XtifyDevice) ? d.xid : d}
+      xids = Array.wrap(opts.delete(:devices)).map {|d| d.is_a?(Device) ? d.xid : d}
+      device_type = opts.delete(:device_type)
       has_tags = Array.wrap(opts.delete(:has_tags))
       not_tags = Array.wrap(opts.delete(:not_tags))
       content = opts.delete(:content)
@@ -89,6 +90,8 @@ module Xtify
       args[:xids] = xids unless xids.empty?
       args[:hasTags] = has_tags unless has_tags.empty?
       args[:notTags] = not_tags unless not_tags.empty?
+      
+      args['type'] = device_type
 
       post('push', args)
     end
@@ -129,9 +132,7 @@ module Xtify
     def post(command, opts)
       args = opts.dup
       raise ConfigError.new("Must specify app_key in Xtify initializer.") unless (config.app_key_ios || config.app_key_gcm)
-
-      device_type = XtifyDevice.find_by_xid(args[:xids].first).device_type
-      args[:appKey] = config.send("app_key_#{device_type.downcase}")
+      args[:appKey] = config.send("app_key_#{args['type'].downcase}")
 
       response = Curl::Easy.perform(File.join(API_V2, command)) do |curl|
         curl.verbose = config.verbose

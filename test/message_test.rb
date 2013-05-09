@@ -66,13 +66,6 @@ class MessageTest < Test::Unit::TestCase
             "badge" => "+1"
           }
         ).to_return(:status => 202)
-
-        @message.push(
-          :devices => "ABC123",
-          :has_tags => ["apple", "banana"],
-          :send_all => true,
-          :inbox_only => false
-        )
       end
 
       should "return success" do
