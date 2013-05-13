@@ -71,8 +71,10 @@ class MessageTest < Test::Unit::TestCase
           :devices => "ABC123",
           :has_tags => ["apple", "banana"],
           :send_all => true,
-          :inbox_only => false
+          :inbox_only => false,
+          :device_type => 'GCM'
         )
+
       end
 
       should "return success" do

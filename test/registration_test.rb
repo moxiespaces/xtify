@@ -44,7 +44,9 @@ class RegistrationTest < Test::Unit::TestCase
       @device = Xtify.register_device(
         :install_id => 'fake_user', 
         :type => Xtify::Device::TYPES[:android],
-        :registration_id => 'fake_registration_id')
+        :registration_id => 'fake_registration_id'
+      )
+
     end
 
     should "return expected device" do
@@ -60,7 +62,8 @@ class RegistrationTest < Test::Unit::TestCase
         @device = Xtify.register_device(
           :install_id => 'fake_user', 
           :type => 'FAKE_TYPE',
-          :registration_id => 'fake_registration_id')
+          :registration_id => 'fake_registration_id'
+        )
       end
     end
   end
@@ -71,7 +74,8 @@ class RegistrationTest < Test::Unit::TestCase
       assert_raises Xtify::InvalidRequest do
         @device = Xtify.register_device(
           :type => Xtify::Device::TYPES[:android],
-          :registration_id => 'fake_registration_id')
+          :registration_id => 'fake_registration_id'
+        )
       end
     end
   end
