@@ -133,6 +133,7 @@ module Xtify
       args = opts.dup
       raise ConfigError.new("Must specify app_key in Xtify initializer.") unless (config.app_key_ios || config.app_key_gcm)
       args[:appKey] = config.send("app_key_#{args['type'].downcase}")
+      args.delete('type') if command == 'push'
 
       response = Curl::Easy.perform(File.join(API_V2, command)) do |curl|
         curl.verbose = config.verbose

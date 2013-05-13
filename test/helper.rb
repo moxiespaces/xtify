@@ -15,12 +15,12 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'xtify'
 
-Xtify.configure
-Xtify.config.app_key_ios = 'FAKE_APP_KEY_IOS'
-Xtify.config.app_key_gcm = 'FAKE_APP_KEY_GCM'
-Xtify.config.api_key = 'FAKE_API_KEY'
-Xtify.config.verbose = false
-
+Xtify.configure do |config|
+  config.app_key_ios = 'FAKE_APP_KEY'
+  config.app_key_gcm = 'FAKE_APP_KEY'
+  config.api_key = 'FAKE_API_KEY'
+  config.verbose = false
+end
 
 class Test::Unit::TestCase
   def stub_xtify_post(url, data)

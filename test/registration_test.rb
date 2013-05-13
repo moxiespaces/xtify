@@ -14,10 +14,16 @@ class RegistrationTest < Test::Unit::TestCase
         :status => 200,
         :body => "{\"xid\":\"#{@xid}\"}"
       )
+
+      @device = Xtify.register_device(
+        :install_id => 'fake_user', 
+        :type => Xtify::Device::TYPES[:apple],
+        :device_token => 'fake_device_token')
     end
 
     should "return expected device" do
-      true
+      assert @device, "Device was not returned"
+      assert_equal  @xid, @device.xid, "Unexpected xid returned"
     end
   end
 
@@ -34,10 +40,18 @@ class RegistrationTest < Test::Unit::TestCase
         :status => 200,
         :body => "{\"xid\":\"#{@xid}\"}"
       )
+
+      @device = Xtify.register_device(
+        :install_id => 'fake_user', 
+        :type => Xtify::Device::TYPES[:android],
+        :registration_id => 'fake_registration_id'
+      )
+
     end
 
     should "return expected device" do
-      true
+      assert @device, "Device was not returned"
+      assert_equal  @xid, @device.xid, "Unexpected xid returned"
     end
   end
 
@@ -48,7 +62,8 @@ class RegistrationTest < Test::Unit::TestCase
         @device = Xtify.register_device(
           :install_id => 'fake_user', 
           :type => 'FAKE_TYPE',
-          :registration_id => 'fake_registration_id')
+          :registration_id => 'fake_registration_id'
+        )
       end
     end
   end
@@ -59,7 +74,8 @@ class RegistrationTest < Test::Unit::TestCase
       assert_raises Xtify::InvalidRequest do
         @device = Xtify.register_device(
           :type => Xtify::Device::TYPES[:android],
-          :registration_id => 'fake_registration_id')
+          :registration_id => 'fake_registration_id'
+        )
       end
     end
   end
